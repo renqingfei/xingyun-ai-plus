@@ -1,0 +1,20 @@
+{
+  "id": "test-plugin",
+  "version": "1.0.0",
+  "name": "测试插件",
+  "type": "image",
+  "host": "http://127.0.0.1",
+  "port": 8888,
+  "exe": "start.bat",
+  "params": [],
+  "description": "这是一个用于测试的简单插件",
+  "options": [
+    {
+      "key": "testOption",
+      "label": "测试选项",
+      "type": "text",
+      "default": "hello",
+      "placeholder": "输入测试内容"
+    }
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "id": "plugin-sample",
+  "version": "1.0.0",
+  "name": "我的AI绘图插件",
+  "type": "image,video",
+  "host": "http://127.0.0.1",
+  "port": 7860,
+  "exe": "start_app.exe",
+  "params": [
+    "--api-mode",
+    "--listen"
+  ],
+  "description": "这是一个使用SD WebUI的插件示例",
+  "options": [
+    {
+      "key": "style",
+      "label": "风格",
+      "type": "select",
+      "default": "realistic",
+      "placeholder": "请选择风格",
+      "options": [
+        { "label": "写实", "value": "realistic" },
+        { "label": "动漫", "value": "anime" },
+        { "label": "油画", "value": "oil" },
+        { "label": "水彩", "value": "watercolor" }
+      ]
+    },
+    {
+      "key": "quality",
+      "label": "图片质量",
+      "type": "number",
+      "default": 80,
+      "placeholder": "输入1-100之间的数值"
+    },
+    {
+      "key": "enableHD",
+      "label": "启用高清模式",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "key": "negativePrompt",
+      "label": "负面提示词",
+      "type": "text",
+      "default": "",
+      "placeholder": "输入不想出现的内容，如：模糊, 低质量"
+    }
+  ]
+}

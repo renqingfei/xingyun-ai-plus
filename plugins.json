@@ -1,0 +1,15 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2024-12-24",
+  "plugins": [
+    {
+      "id": "test-plugin",
+      "name": "测试插件",
+      "version": "1.0.0",
+      "type": "image",
+      "description": "这是一个用于测试的简单插件",
+      "author": "renqingfei",
+      "downloadUrl": "https://raw.githubusercontent.com/renqingfei/xingyun-ai-plugins/main/plugins/test-plugin-1.0.0.zip"
+    }
+  ]
+}

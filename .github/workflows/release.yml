@@ -3,10 +3,10 @@ name: Release Plugins
 on:
   push:
     tags:
-      - 'v*' # 当推送以 v 开头的 tag 时触发，例如 v1.0.0
+      - 'v*'
 
 permissions:
-  contents: write # 需要写入权限来创建 Release
+  contents: write
 
 jobs:
   release:
@@ -15,10 +15,43 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Clean and Package Plugins
+        run: |
+          # 1. 删除 releases 目录下现有的 zip 文件 (只保留 plugins.json)
+          find releases -name "*.zip" -type f -delete
+          
+          # 2. 遍历 plugins 目录并打包
+          mkdir -p releases
+          cd plugins
+          for d in */ ; do
+            if [ -d "$d" ]; then
+              plugin_name=$(basename "$d")
+              if [ -f "$d/config.json" ]; then
+                 # 从 config.json 读取版本号 (简单提取，假设格式标准)
+                 version=$(grep -o '"version": *"[^"]*"' "$d/config.json" | cut -d'"' -f4)
+                 id=$(grep -o '"id": *"[^"]*"' "$d/config.json" | cut -d'"' -f4)
+                 
+                 if [ -n "$id" ] && [ -n "$version" ]; then
+                    zip_name="${id}-${version}.zip"
+                    echo "Packaging $plugin_name -> releases/$zip_name"
+                    # 进入插件目录打包，避免包含插件目录本身层级
+                    cd "$d"
+                    zip -r "../../releases/$zip_name" .
+                    cd ..
+                 fi
+              fi
+            fi
+          done
+          cd ..
+          
+          echo "Listing releases directory:"
+          ls -R releases/
+
       - name: Create Release and Upload Assets
         uses: softprops/action-gh-release@v2
         with:
-          # 直接上传 releases 目录下的所有文件
-          files: releases/*
+          files: |
+            releases/*.zip
+            releases/plugins.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -3,6 +3,7 @@ const path = require('path');
 const { execSync } = require('child_process');
 
 // 配置
+const PLUGINS_DIR = path.join(__dirname, '../plugins');
 const PLUGINS_JSON_PATH = path.join(__dirname, '../releases/plugins.json');
 
 // 颜色输出
@@ -31,60 +32,92 @@ function runCommand(command) {
 function incrementVersion(version) {
     const parts = version.split('.').map(Number);
     if (parts.length < 3) {
-        // 简单处理非语义化版本
         return version + ".1";
     }
-    // 增加 Patch 版本
     parts[parts.length - 1] += 1;
     return parts.join('.');
+}
+
+function loadJson(filePath) {
+    if (fs.existsSync(filePath)) {
+        try {
+            return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+        } catch (e) {
+            log(colors.red, `Error parsing JSON from ${filePath}: ${e.message}`);
+        }
+    }
+    return null;
 }
 
 function main() {
     log(colors.green, "🚀 Starting release process...");
 
-    // 1. 读取版本号
+    // 1. 同步 plugins/config.json 到 releases/plugins.json
+    log(colors.blue, "🔄 Syncing plugin configs...");
+    
     if (!fs.existsSync(PLUGINS_JSON_PATH)) {
         log(colors.red, `Error: Could not find ${PLUGINS_JSON_PATH}`);
         process.exit(1);
     }
 
-    let pluginsConfig = JSON.parse(fs.readFileSync(PLUGINS_JSON_PATH, 'utf-8'));
-    let version = pluginsConfig.version;
+    let pluginsConfig = loadJson(PLUGINS_JSON_PATH);
+    if (!pluginsConfig) process.exit(1);
 
+    // 清空现有的 plugins 列表，重新扫描
+    pluginsConfig.plugins = [];
+
+    if (fs.existsSync(PLUGINS_DIR)) {
+        const items = fs.readdirSync(PLUGINS_DIR);
+        for (const item of items) {
+            if (item.startsWith('.')) continue;
+            const pluginPath = path.join(PLUGINS_DIR, item);
+            if (!fs.statSync(pluginPath).isDirectory()) continue;
+
+            const configPath = path.join(pluginPath, 'config.json');
+            const config = loadJson(configPath);
+
+            if (config && config.id && config.version) {
+                // 自动生成 fileName，确保 Actions 打包时名字一致
+                const zipFileName = `${config.id}-${config.version}.zip`;
+                
+                const pluginEntry = { ...config };
+                if (pluginEntry.downloadUrl) delete pluginEntry.downloadUrl;
+                pluginEntry.fileName = zipFileName;
+                
+                pluginsConfig.plugins.push(pluginEntry);
+                log(colors.green, `   + Added ${config.id} (${config.version})`);
+            } else {
+                log(colors.yellow, `   - Skipped ${item} (invalid config)`);
+            }
+        }
+    }
+
+    // 2. 自动递增版本号
+    let version = pluginsConfig.version;
     if (!version) {
         log(colors.red, "Error: 'version' field not found in plugins.json");
         process.exit(1);
     }
 
-    // 2. 自动检测并递增版本号
     let tagName = `v${version}`;
     let isVersionUpdated = false;
 
     try {
         const existingTags = execSync('git tag').toString().split('\n').map(t => t.trim());
-        
         while (existingTags.includes(tagName)) {
             log(colors.yellow, `Tag ${tagName} already exists. Incrementing version...`);
             version = incrementVersion(version);
             tagName = `v${version}`;
             isVersionUpdated = true;
         }
-    } catch (e) {
-        // Ignore error if no tags exist or git command fails (will be caught later)
-    }
+    } catch (e) {}
 
-    if (isVersionUpdated) {
-        log(colors.green, `✨ New version resolved: ${version}`);
-        // 更新 plugins.json
-        pluginsConfig.version = version;
-        // 更新 lastUpdated
-        pluginsConfig.lastUpdated = new Date().toISOString().split('T')[0];
-        
-        fs.writeFileSync(PLUGINS_JSON_PATH, JSON.stringify(pluginsConfig, null, 2), 'utf-8');
-        log(colors.green, `Updated ${PLUGINS_JSON_PATH}`);
-    } else {
-        log(colors.yellow, `📦 Using existing version from file: ${tagName}`);
-    }
+    // 始终更新文件（因为我们同步了 plugins 列表）
+    pluginsConfig.version = version;
+    pluginsConfig.lastUpdated = new Date().toISOString().split('T')[0];
+    
+    fs.writeFileSync(PLUGINS_JSON_PATH, JSON.stringify(pluginsConfig, null, 2), 'utf-8');
+    log(colors.green, `✅ Updated ${PLUGINS_JSON_PATH} (Version: ${version})`);
 
     // 3. 提交更改
     try {
@@ -101,33 +134,28 @@ function main() {
         process.exit(1);
     }
 
-    // 4. 双重检查 Tag (理论上上面已经处理了，但为了安全)
+    // 4. 打 Tag 并推送
     try {
         const existingTags = execSync('git tag').toString().split('\n').map(t => t.trim());
         if (existingTags.includes(tagName)) {
-            log(colors.red, `Error: Tag ${tagName} already exists locally! Unexpected state.`);
-            process.exit(1);
+             log(colors.yellow, `Tag ${tagName} already exists locally, skipping creation.`);
+        } else {
+            runCommand(`git tag ${tagName}`);
+            log(colors.green, `✅ Tag ${tagName} created.`);
         }
     } catch (e) {}
 
-    // 5. 打 Tag 并推送
-    runCommand(`git tag ${tagName}`);
-    log(colors.green, `✅ Tag ${tagName} created.`);
-
     log(colors.yellow, "Pushing to remote...");
-    // 尝试推送到当前分支
     try {
         const currentBranch = execSync('git branch --show-current').toString().trim();
         runCommand(`git push origin ${currentBranch}`);
     } catch (e) {
-        log(colors.yellow, "Could not determine current branch, trying 'main'...");
         runCommand('git push origin main');
     }
     
     runCommand(`git push origin ${tagName}`);
 
-    log(colors.green, `🎉 Release ${tagName} completed successfully!`);
-    log(colors.green, "GitHub Actions should now trigger the release workflow.");
+    log(colors.green, `🎉 Release ${tagName} completed! GitHub Actions will handle packaging.`);
 }
 
 main();

@@ -10,7 +10,5 @@
     "plugins"
   ],
   "author": "",
-  "license": "ISC",
-  "dependencies": {},
-  "devDependencies": {}
+  "license": "ISC"
 }

@@ -5,7 +5,7 @@
   "plugins": [
     {
       "id": "test-plugin",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "name": "测试插件",
       "type": "image",
       "host": "http://127.0.0.1",
@@ -22,7 +22,7 @@
           "placeholder": "输入测试内容"
         }
       ],
-      "fileName": "test-plugin-1.0.0.zip"
+      "fileName": "test-plugin-1.0.1.zip"
     }
   ]
 }

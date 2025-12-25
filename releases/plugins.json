@@ -1,6 +1,7 @@
 {
   "version": "1.0.0",
   "lastUpdated": "2025-12-25",
+  "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
     {
       "id": "test-plugin",
@@ -21,7 +22,7 @@
           "placeholder": "输入测试内容"
         }
       ],
-      "downloadUrl": "https://raw.githubusercontent.com/renqingfei/xingyun-ai-plugins/main/releases/test-plugin-1.0.0.zip"
+      "fileName": "test-plugin-1.0.0.zip"
     }
   ]
 }

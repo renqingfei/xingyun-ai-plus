@@ -16,39 +16,17 @@
     └── ... (更多插件)
 ```
 
-## 插件开发流程
+## 插件发布流程
 
-1. **创建插件**
-   在 `plugins/` 目录下创建一个新的文件夹（例如 `my-plugin`），并在其中添加 `config.json` 和你的代码文件。
+1. **开发与打包**
+   - 开发您的插件代码。
+   - 手动将插件打包成 `.zip` 文件，放入 `releases/` 目录。
+   - 更新 `releases/plugins.json` 文件：
+     - **更新外层的 `version` 字段**（这决定了发布的 Tag 版本）。
+     - **确保 `baseUrl` 正确**（通常为 `https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/`）。
+     - 在 `plugins` 列表中添加插件信息，使用 `fileName` 指定对应的 zip 包名。
 
-   `config.json` 示例：
-   ```json
-   {
-     "id": "my-plugin",
-     "version": "1.0.0",
-     "name": "我的插件",
-     "description": "这是一个很棒的插件",
-     "type": "tool",
-     "exe": "main.py"
-   }
-   ```
-
-2. **打包与更新索引**
-   在根目录下运行构建脚本：
-   ```bash
-   python build_plugins.py
-   ```
-   该脚本会：
-   - 将 `plugins/` 下的每个插件打包成 `.zip` 文件存放到 `releases/` 目录。
-  - 自动扫描所有插件信息，更新 `releases/plugins.json`。
-
-3. **发布**
-   将所有更改提交到 GitHub：
-   ```bash
-   git add .
-   git commit -m "Add new plugin: my-plugin"
-   git push
-   ```
+2. **一键发布**
 
 ## 配置说明
 

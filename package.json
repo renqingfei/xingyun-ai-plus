@@ -1,0 +1,16 @@
+{
+  "name": "xingyun-ai-plugins",
+  "version": "1.0.0",
+  "description": "Plugins repository for Xingyun AI Plus",
+  "scripts": {
+    "release": "node scripts/release.js"
+  },
+  "keywords": [
+    "xingyun-ai",
+    "plugins"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {}
+}

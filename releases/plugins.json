@@ -1,11 +1,11 @@
 {
-  "version": "1.0.4",
+  "version": "1.0.5",
   "lastUpdated": "2025-12-26",
   "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
     {
       "id": "shenmi-plugin",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "name": "神秘插件",
       "type": "image,video",
       "host": "http://127.0.0.1",
@@ -195,7 +195,7 @@
           "scope": "image,video"
         }
       ],
-      "fileName": "shenmi-plugin-1.0.0.zip"
+      "fileName": "shenmi-plugin-1.0.1.zip"
     }
   ]
 }

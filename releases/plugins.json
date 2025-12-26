@@ -1,28 +1,195 @@
 {
-  "version": "1.0.2",
+  "version": "1.0.3",
   "lastUpdated": "2025-12-26",
   "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
     {
-      "id": "test-plugin",
-      "version": "1.0.1",
-      "name": "测试插件",
-      "type": "image",
+      "id": "shenmi-plugin",
+      "version": "1.0.0",
+      "name": "神秘插件",
+      "type": "image,video",
       "host": "http://127.0.0.1",
-      "port": 8888,
-      "exe": "start.bat",
+      "port": 13002,
+      "exe": "shenmi-plugin.exe",
       "params": [],
-      "description": "这是一个用于测试的简单插件",
+      "description": "神秘插件，用于出图和出视频",
       "options": [
         {
-          "key": "testOption",
-          "label": "测试选项",
-          "type": "text",
-          "default": "hello",
-          "placeholder": "输入测试内容"
+          "key": "ratio",
+          "label": "比例",
+          "type": "select",
+          "default": "1:1",
+          "placeholder": "请选择比例",
+          "scope": "image,video",
+          "options": [
+            {
+              "label": "1:1",
+              "value": "1:1"
+            },
+            {
+              "label": "4:3",
+              "value": "4:3"
+            },
+            {
+              "label": "3:4",
+              "value": "3:4"
+            },
+            {
+              "label": "16:9",
+              "value": "16:9"
+            },
+            {
+              "label": "9:16",
+              "value": "9:16"
+            },
+            {
+              "label": "3:2",
+              "value": "3:2"
+            },
+            {
+              "label": "2:3",
+              "value": "2:3"
+            },
+            {
+              "label": "21:9",
+              "value": "21:9"
+            }
+          ]
+        },
+        {
+          "key": "resolution",
+          "label": "分辨率",
+          "type": "select",
+          "default": "2k",
+          "placeholder": "请选择分辨率",
+          "scope": "image",
+          "options": [
+            {
+              "label": "1k",
+              "value": "1k"
+            },
+            {
+              "label": "2k",
+              "value": "2k"
+            },
+            {
+              "label": "4k",
+              "value": "4k"
+            }
+          ]
+        },
+        {
+          "key": "resolution",
+          "label": "分辨率",
+          "type": "select",
+          "default": "720p",
+          "placeholder": "请选择分辨率",
+          "scope": "image",
+          "options": [
+            {
+              "label": "720p",
+              "value": "720p"
+            },
+            {
+              "label": "1080p",
+              "value": "1080p"
+            }
+          ]
+        },
+        {
+          "key": "model",
+          "label": "出图模型",
+          "type": "select",
+          "default": "4.0",
+          "placeholder": "请选择出图模型",
+          "scope": "image",
+          "options": [
+            {
+              "label": "jimeng",
+              "value": "jimeng"
+            },
+            {
+              "label": "4.5",
+              "value": "jimeng-4.5"
+            },
+            {
+              "label": "4.1",
+              "value": "jimeng-4.1"
+            },
+            {
+              "label": "4.0",
+              "value": "jimeng-4.0"
+            },
+            {
+              "label": "3.1",
+              "value": "jimeng-3.1"
+            },
+            {
+              "label": "3.0",
+              "value": "jimeng-3.0"
+            },
+            {
+              "label": "2.1",
+              "value": "jimeng-2.1"
+            },
+            {
+              "label": "2.0-pro",
+              "value": "jimeng-2.0-pro"
+            },
+            {
+              "label": "2.0",
+              "value": "jimeng-2.0"
+            },
+            {
+              "label": "1.4",
+              "value": "jimeng-1.4"
+            },
+            {
+              "label": "xl-pro",
+              "value": "jimeng-xl-pro"
+            }
+          ]
+        },
+        {
+          "key": "model",
+          "label": "视频模型",
+          "type": "select",
+          "default": "video-3.0",
+          "placeholder": "请选择视频模型",
+          "scope": "video",
+          "options": [
+            {
+              "label": "video-3.5-pro",
+              "value": "jimeng-video-3.5-pro"
+            },
+            {
+              "label": "video-3.0",
+              "value": "jimeng-video-3.0"
+            },
+            {
+              "label": "video-3.0-pro",
+              "value": "jimeng-video-3.0-pro"
+            },
+            {
+              "label": "video-2.0",
+              "value": "jimeng-video-2.0"
+            },
+            {
+              "label": "video-2.0-pro",
+              "value": "jimeng-video-2.0-pro"
+            }
+          ]
+        },
+        {
+          "key": "sample_strength",
+          "label": "样本强度",
+          "hidden": true,
+          "type": "input",
+          "default": "0.7",
+          "scope": "image,video"
         }
       ],
-      "fileName": "test-plugin-1.0.1.zip"
+      "fileName": "shenmi-plugin-1.0.0.zip"
     }
   ]
 }

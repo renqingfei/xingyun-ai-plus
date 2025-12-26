@@ -91,7 +91,7 @@
       "key": "sample_strength",
       "label": "样本强度",
       "hidden": true,
-      "type": "input",
+      "type": "number",
       "default": "0.7",
       "scope": "image,video"
     },

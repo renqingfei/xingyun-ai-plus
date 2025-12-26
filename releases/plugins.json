@@ -1,5 +1,5 @@
 {
-  "version": "1.0.3",
+  "version": "1.0.4",
   "lastUpdated": "2025-12-26",
   "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
@@ -84,7 +84,7 @@
           "type": "select",
           "default": "720p",
           "placeholder": "请选择分辨率",
-          "scope": "image",
+          "scope": "video",
           "options": [
             {
               "label": "720p",
@@ -104,10 +104,6 @@
           "placeholder": "请选择出图模型",
           "scope": "image",
           "options": [
-            {
-              "label": "jimeng",
-              "value": "jimeng"
-            },
             {
               "label": "4.5",
               "value": "jimeng-4.5"
@@ -186,6 +182,16 @@
           "hidden": true,
           "type": "input",
           "default": "0.7",
+          "scope": "image,video"
+        },
+        {
+          "key": "sessionId",
+          "label": "会话ID",
+          "hidden": false,
+          "isHeader": true,
+          "placeholder": "请输入会话ID",
+          "type": "input",
+          "default": "",
           "scope": "image,video"
         }
       ],

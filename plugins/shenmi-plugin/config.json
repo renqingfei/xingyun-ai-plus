@@ -46,7 +46,7 @@
       "type": "select",
       "default": "720p",
       "placeholder": "请选择分辨率",
-      "scope": "image",
+      "scope": "video",
       "options": [
         { "label": "720p", "value": "720p" },
         { "label": "1080p", "value": "1080p" }
@@ -60,7 +60,6 @@
       "placeholder": "请选择出图模型",
       "scope": "image",
       "options": [
-        { "label": "jimeng", "value": "jimeng" },
         { "label": "4.5", "value": "jimeng-4.5" },
         { "label": "4.1", "value": "jimeng-4.1" },
         { "label": "4.0", "value": "jimeng-4.0" },
@@ -94,6 +93,16 @@
       "hidden": true,
       "type": "input",
       "default": "0.7",
+      "scope": "image,video"
+    },
+    {
+      "key": "sessionId",
+      "label": "会话ID",
+      "hidden": false,
+      "isHeader": true,
+      "placeholder": "请输入会话ID",
+      "type": "input",
+      "default": "",
       "scope": "image,video"
     }
   ]

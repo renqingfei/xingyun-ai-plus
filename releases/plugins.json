@@ -1,11 +1,11 @@
 {
-  "version": "1.0.6",
-  "lastUpdated": "2025-12-26",
+  "version": "1.0.7",
+  "lastUpdated": "2025-12-27",
   "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
     {
       "id": "shenmi-plugin",
-      "version": "1.0.2",
+      "version": "1.0.3",
       "name": "神秘插件",
       "type": "image,video",
       "host": "http://127.0.0.1",
@@ -18,6 +18,9 @@
           "key": "ratio",
           "label": "比例",
           "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
           "default": "1:1",
           "placeholder": "请选择比例",
           "scope": "image,video",
@@ -60,6 +63,9 @@
           "key": "resolution",
           "label": "分辨率",
           "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
           "default": "2k",
           "placeholder": "请选择分辨率",
           "scope": "image",
@@ -82,6 +88,9 @@
           "key": "resolution",
           "label": "分辨率",
           "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
           "default": "720p",
           "placeholder": "请选择分辨率",
           "scope": "video",
@@ -100,6 +109,9 @@
           "key": "model",
           "label": "出图模型",
           "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
           "default": "4.0",
           "placeholder": "请选择出图模型",
           "scope": "image",
@@ -149,6 +161,9 @@
         {
           "key": "model",
           "label": "视频模型",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
           "type": "select",
           "default": "video-3.0",
           "placeholder": "请选择视频模型",
@@ -179,7 +194,9 @@
         {
           "key": "sample_strength",
           "label": "样本强度",
+          "required": true,
           "hidden": true,
+          "isHeader": false,
           "type": "number",
           "default": "0.7",
           "scope": "image,video"
@@ -187,15 +204,16 @@
         {
           "key": "sessionId",
           "label": "会话ID",
+          "required": true,
           "hidden": false,
           "isHeader": true,
           "placeholder": "请输入会话ID",
-          "type": "input",
+          "type": "password",
           "default": "",
           "scope": "image,video"
         }
       ],
-      "fileName": "shenmi-plugin-1.0.2.zip"
+      "fileName": "shenmi-plugin-1.0.3.zip"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.10",
+  "version": "1.0.11",
   "lastUpdated": "2025-12-28",
   "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
@@ -217,7 +217,7 @@
     },
     {
       "id": "wan2.2-plugin",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "name": "万象2.2图生视频插件",
       "type": "video",
       "host": "http://127.0.0.1",
@@ -260,7 +260,7 @@
           "scope": "video"
         }
       ],
-      "fileName": "wan2.2-plugin-1.0.0.zip"
+      "fileName": "wan2.2-plugin-1.0.1.zip"
     }
   ]
 }

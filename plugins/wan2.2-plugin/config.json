@@ -1,6 +1,6 @@
 {
   "id": "wan2.2-plugin",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "name": "万象2.2图生视频插件",
   "type": "video",
   "host": "http://127.0.0.1",

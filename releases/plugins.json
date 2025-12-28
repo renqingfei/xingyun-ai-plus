@@ -244,7 +244,7 @@
           "required": true,
           "hidden": false,
           "isHeader": false,
-          "default": "1080",
+          "default": "720",
           "placeholder": "请输入视频宽度",
           "scope": "video"
         },
@@ -255,7 +255,7 @@
           "required": true,
           "hidden": false,
           "isHeader": false,
-          "default": "1920",
+          "default": "1080",
           "placeholder": "请输入视频高度",
           "scope": "video"
         }

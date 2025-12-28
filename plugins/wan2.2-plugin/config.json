@@ -1,0 +1,44 @@
+{
+  "id": "shenmi-plugin",
+  "version": "1.0.3",
+  "name": "万象2.2图生视频插件",
+  "type": "video",
+  "host": "http://127.0.0.1",
+  "port": 13004,
+  "exe": "wan2.2.exe",
+  "params": [],
+  "description": "万象2.2图生视频",
+  "options": [
+    {
+      "key": "comfyui_url",
+      "label": "COMFYUI地址",
+      "type": "input",
+      "required": true,
+      "hidden": false,
+      "isHeader": false,
+      "default": "",
+      "placeholder": "请输入COMFYUI地址",
+      "scope": "video"
+    },{
+      "key": "width",
+      "label": "视频宽度",
+      "type": "input",
+      "required": true,
+      "hidden": false,
+      "isHeader": false,
+      "default": "1080",
+      "placeholder": "请输入视频宽度",
+      "scope": "video"
+    },{
+      "key": "height",
+      "label": "视频高度",
+      "type": "input",
+      "required": true,
+      "hidden": false,
+      "isHeader": false,
+      "default": "1920",
+      "placeholder": "请输入视频高度",
+      "scope": "video"
+    }
+  ]
+}

@@ -67,5 +67,5 @@ jobs:
           git remote add cnb https://cnb:${{ secrets.CNB_TOKEN }}@cnb.cool/da-fei/xingyun-ai-plugs.git || true
 
           # 推送代码和 tag 到 CNB.cool
-          git push cnb HEAD:main --force
+          git push cnb HEAD:refs/heads/master --force
           git push cnb ${{ github.ref_name }} --force

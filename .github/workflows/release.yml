@@ -19,7 +19,7 @@ jobs:
         run: |
           # 1. 删除 releases 目录下现有的 zip 文件 (只保留 plugins.json)
           find releases -name "*.zip" -type f -delete
-          
+
           # 2. 遍历 plugins 目录并打包
           mkdir -p releases
           cd plugins
@@ -30,7 +30,7 @@ jobs:
                  # 从 config.json 读取版本号 (简单提取，假设格式标准)
                  version=$(grep -o '"version": *"[^"]*"' "$d/config.json" | cut -d'"' -f4)
                  id=$(grep -o '"id": *"[^"]*"' "$d/config.json" | cut -d'"' -f4)
-                 
+
                  if [ -n "$id" ] && [ -n "$version" ]; then
                     zip_name="${id}-${version}.zip"
                     echo "Packaging $plugin_name -> releases/$zip_name"
@@ -43,7 +43,7 @@ jobs:
             fi
           done
           cd ..
-          
+
           echo "Listing releases directory:"
           ls -R releases/
 
@@ -55,3 +55,17 @@ jobs:
             releases/plugins.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # 同步到 CNB.cool
+      - name: Push to CNB.cool
+        run: |
+          # 配置 Git
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 添加 CNB.cool 远程仓库
+          git remote add cnb https://cnb:${{ secrets.CNB_TOKEN }}@cnb.cool/da-fei/xingyun-ai-plugs.git || true
+
+          # 推送代码和 tag 到 CNB.cool
+          git push cnb HEAD:main --force
+          git push cnb ${{ github.ref_name }} --force

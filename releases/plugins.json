@@ -1,7 +1,7 @@
 {
   "version": "1.0.16",
   "lastUpdated": "2026-01-14",
-  "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
+  "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
     {
       "id": "shenmi-plugin",

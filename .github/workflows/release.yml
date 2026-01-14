@@ -61,35 +61,71 @@ jobs:
         env:
           CNB_TOKEN: ${{ secrets.CNB_TOKEN }}
           CNB_REPO: da-fei/xingyun-ai-plugs
-          CNB_RELEASE_ID: ${{ secrets.CNB_RELEASE_ID }}
+          TAG_NAME: ${{ github.ref_name }}
         run: |
+          # 步骤1: 创建 Release（同步 tag）
+          echo "===== 创建 CNB.cool Release: $TAG_NAME ====="
+          create_response=$(curl -s -w "\n%{http_code}" -X POST \
+            "https://api.cnb.cool/${CNB_REPO}/-/releases" \
+            -H "Authorization: Bearer ${CNB_TOKEN}" \
+            -H "Content-Type: application/vnd.cnb.api+json" \
+            -H "Accept: application/vnd.cnb.api+json" \
+            -d "{\"tag_name\": \"$TAG_NAME\", \"name\": \"$TAG_NAME\", \"description\": \"Release $TAG_NAME\"}")
+
+          http_code=$(echo "$create_response" | tail -n1)
+          body=$(echo "$create_response" | sed '$d')
+
+          echo "创建 Release HTTP状态码: $http_code"
+          echo "响应内容: $body"
+
+          # 获取 Release ID
+          CNB_RELEASE_ID=$(echo "$body" | jq -r '.id')
+
+          if [ "$CNB_RELEASE_ID" == "null" ] || [ -z "$CNB_RELEASE_ID" ]; then
+            echo "创建 Release 失败或获取 ID 失败"
+            exit 1
+          fi
+
+          echo "✅ Release 创建成功, ID: $CNB_RELEASE_ID"
+
           # 上传单个文件到 CNB.cool Release
           upload_file() {
             local file_path="$1"
             local asset_name=$(basename "$file_path")
             local file_size=$(stat -c%s "$file_path")
 
-            echo "上传文件: $asset_name (大小: $file_size bytes)"
+            echo ""
+            echo "===== 上传文件: $asset_name (大小: $file_size bytes) ====="
 
-            # 步骤1: 获取上传URL
-            echo "步骤1: 获取上传URL..."
-            response=$(curl -s -X POST \
+            # 获取上传URL
+            echo "获取上传URL..."
+            response=$(curl -s -w "\n%{http_code}" -X POST \
               "https://api.cnb.cool/${CNB_REPO}/-/releases/${CNB_RELEASE_ID}/asset-upload-url" \
               -H "Authorization: Bearer ${CNB_TOKEN}" \
               -H "Content-Type: application/vnd.cnb.api+json" \
               -H "Accept: application/vnd.cnb.api+json" \
               -d "{\"asset_name\": \"$asset_name\", \"size\": $file_size}")
 
-            upload_url=$(echo "$response" | jq -r '.upload_url')
-            verify_url=$(echo "$response" | jq -r '.verify_url')
+            http_code=$(echo "$response" | tail -n1)
+            body=$(echo "$response" | sed '$d')
 
-            if [ "$upload_url" == "null" ] || [ -z "$upload_url" ]; then
-              echo "获取上传URL失败: $response"
+            echo "HTTP状态码: $http_code"
+
+            if [ "$http_code" != "200" ] && [ "$http_code" != "201" ]; then
+              echo "获取上传URL失败: $body"
               return 1
             fi
 
-            # 步骤2: 上传文件
-            echo "步骤2: 上传文件到 $upload_url"
+            upload_url=$(echo "$body" | jq -r '.upload_url')
+            verify_url=$(echo "$body" | jq -r '.verify_url')
+
+            if [ "$upload_url" == "null" ] || [ -z "$upload_url" ]; then
+              echo "解析上传URL失败"
+              return 1
+            fi
+
+            # 上传文件
+            echo "上传文件中..."
             upload_status=$(curl -s -o /dev/null -w "%{http_code}" -X PUT \
               "$upload_url" \
               -H "Content-Type: application/octet-stream" \
@@ -100,8 +136,8 @@ jobs:
               return 1
             fi
 
-            # 步骤3: 确认上传
-            echo "步骤3: 确认上传..."
+            # 确认上传
+            echo "确认上传..."
             curl -s -X POST "$verify_url" \
               -H "Authorization: Bearer ${CNB_TOKEN}" \
               -H "Content-Type: application/vnd.cnb.api+json" \
@@ -122,4 +158,5 @@ jobs:
             upload_file "releases/plugins.json"
           fi
 
+          echo ""
           echo "🎉 所有文件上传完成!"

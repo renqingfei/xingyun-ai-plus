@@ -56,16 +56,70 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # 同步到 CNB.cool
-      - name: Push to CNB.cool
+      # 上传产物到 CNB.cool Release
+      - name: Upload to CNB.cool Release
+        env:
+          CNB_TOKEN: ${{ secrets.CNB_TOKEN }}
+          CNB_REPO: da-fei/xingyun-ai-plugs
+          CNB_RELEASE_ID: ${{ secrets.CNB_RELEASE_ID }}
         run: |
-          # 配置 Git
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 上传单个文件到 CNB.cool Release
+          upload_file() {
+            local file_path="$1"
+            local asset_name=$(basename "$file_path")
+            local file_size=$(stat -c%s "$file_path")
 
-          # 添加 CNB.cool 远程仓库
-          git remote add cnb https://cnb:${{ secrets.CNB_TOKEN }}@cnb.cool/da-fei/xingyun-ai-plugs.git || true
+            echo "上传文件: $asset_name (大小: $file_size bytes)"
 
-          # 推送代码和 tag 到 CNB.cool
-          git push cnb HEAD:refs/heads/master --force
-          git push cnb ${{ github.ref_name }} --force
+            # 步骤1: 获取上传URL
+            echo "步骤1: 获取上传URL..."
+            response=$(curl -s -X POST \
+              "https://api.cnb.cool/${CNB_REPO}/-/releases/${CNB_RELEASE_ID}/asset-upload-url" \
+              -H "Authorization: Bearer ${CNB_TOKEN}" \
+              -H "Content-Type: application/vnd.cnb.api+json" \
+              -H "Accept: application/vnd.cnb.api+json" \
+              -d "{\"asset_name\": \"$asset_name\", \"size\": $file_size}")
+
+            upload_url=$(echo "$response" | jq -r '.upload_url')
+            verify_url=$(echo "$response" | jq -r '.verify_url')
+
+            if [ "$upload_url" == "null" ] || [ -z "$upload_url" ]; then
+              echo "获取上传URL失败: $response"
+              return 1
+            fi
+
+            # 步骤2: 上传文件
+            echo "步骤2: 上传文件到 $upload_url"
+            upload_status=$(curl -s -o /dev/null -w "%{http_code}" -X PUT \
+              "$upload_url" \
+              -H "Content-Type: application/octet-stream" \
+              --data-binary "@$file_path")
+
+            if [ "$upload_status" != "200" ]; then
+              echo "上传失败, HTTP状态码: $upload_status"
+              return 1
+            fi
+
+            # 步骤3: 确认上传
+            echo "步骤3: 确认上传..."
+            curl -s -X POST "$verify_url" \
+              -H "Authorization: Bearer ${CNB_TOKEN}" \
+              -H "Content-Type: application/vnd.cnb.api+json" \
+              -H "Accept: application/vnd.cnb.api+json"
+
+            echo "✅ $asset_name 上传成功!"
+          }
+
+          # 上传所有 zip 文件
+          for zip_file in releases/*.zip; do
+            if [ -f "$zip_file" ]; then
+              upload_file "$zip_file"
+            fi
+          done
+
+          # 上传 plugins.json
+          if [ -f "releases/plugins.json" ]; then
+            upload_file "releases/plugins.json"
+          fi
+
+          echo "🎉 所有文件上传完成!"

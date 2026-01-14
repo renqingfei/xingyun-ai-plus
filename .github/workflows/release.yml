@@ -63,14 +63,31 @@ jobs:
           CNB_REPO: da-fei/xingyun-ai-plugs
           TAG_NAME: ${{ github.ref_name }}
         run: |
-          # 步骤1: 创建 Release（同步 tag）
+          # 步骤1: 推送 tag 到 CNB.cool
+          echo "===== 推送 tag 到 CNB.cool: $TAG_NAME ====="
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # 获取完整历史以便推送 tag
+          git fetch --unshallow || true
+          git fetch --tags
+
+          # 添加 CNB.cool 远程仓库
+          git remote add cnb https://cnb:${CNB_TOKEN}@cnb.cool/${CNB_REPO}.git || true
+
+          # 只推送当前 tag
+          git push cnb refs/tags/${TAG_NAME}:refs/tags/${TAG_NAME} --force
+          echo "✅ Tag $TAG_NAME 推送成功!"
+
+          # 步骤2: 创建 Release
+          echo ""
           echo "===== 创建 CNB.cool Release: $TAG_NAME ====="
           create_response=$(curl -s -w "\n%{http_code}" -X POST \
             "https://api.cnb.cool/${CNB_REPO}/-/releases" \
             -H "Authorization: Bearer ${CNB_TOKEN}" \
             -H "Content-Type: application/vnd.cnb.api+json" \
             -H "Accept: application/vnd.cnb.api+json" \
-            -d "{\"tag_name\": \"$TAG_NAME\", \"name\": \"$TAG_NAME\", \"description\": \"Release $TAG_NAME\"}")
+            -d "{\"tag_name\": \"$TAG_NAME\", \"name\": \"$TAG_NAME\", \"description\": \"Release $TAG_NAME\", \"target_commitish\": \"$TAG_NAME\"}")
 
           http_code=$(echo "$create_response" | tail -n1)
           body=$(echo "$create_response" | sed '$d')

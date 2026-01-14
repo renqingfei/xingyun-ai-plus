@@ -1,11 +1,11 @@
 {
-  "version": "1.0.11",
-  "lastUpdated": "2025-12-28",
+  "version": "1.0.12",
+  "lastUpdated": "2026-01-14",
   "baseUrl": "https://github.com/renqingfei/xingyun-ai-plus/releases/latest/download/",
   "plugins": [
     {
       "id": "shenmi-plugin",
-      "version": "1.0.3",
+      "version": "1.0.4",
       "name": "神秘插件",
       "type": "image,video",
       "host": "http://127.0.0.1",
@@ -192,6 +192,27 @@
           ]
         },
         {
+          "key": "duration",
+          "label": "视频时长",
+          "required": true,
+          "hidden": true,
+          "lineShow": true,
+          "isHeader": false,
+          "type": "radio",
+          "default": "5",
+          "scope": "video",
+          "options": [
+            {
+              "label": "5秒",
+              "value": "5"
+            },
+            {
+              "label": "10秒",
+              "value": "10"
+            }
+          ]
+        },
+        {
           "key": "sample_strength",
           "label": "样本强度",
           "required": true,
@@ -213,7 +234,7 @@
           "scope": "image,video"
         }
       ],
-      "fileName": "shenmi-plugin-1.0.3.zip"
+      "fileName": "shenmi-plugin-1.0.4.zip"
     },
     {
       "id": "wan2.2-plugin",

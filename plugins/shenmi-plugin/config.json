@@ -110,11 +110,11 @@
       "lineShow": true,
       "isHeader": false,
       "type": "radio",
-      "default": "5",
+      "default": 5,
       "scope": "video",
       "options": [
-        { "label": "5秒", "value": "5" },
-        { "label": "10秒", "value": "10" }
+        { "label": "5秒", "value": 5 },
+        { "label": "10秒", "value": 10 }
       ]
     },
     {
@@ -124,7 +124,7 @@
       "hidden": true,
       "isHeader": false,
       "type": "number",
-      "default": "0.7",
+      "default": "0.5",
       "scope": "image,video"
     },
     {

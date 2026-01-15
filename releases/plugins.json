@@ -1,6 +1,6 @@
 {
-  "version": "1.0.17",
-  "lastUpdated": "2026-01-14",
+  "version": "1.0.18",
+  "lastUpdated": "2026-01-15",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
     {
@@ -199,16 +199,16 @@
           "lineShow": true,
           "isHeader": false,
           "type": "radio",
-          "default": "5",
+          "default": 5,
           "scope": "video",
           "options": [
             {
               "label": "5秒",
-              "value": "5"
+              "value": 5
             },
             {
               "label": "10秒",
-              "value": "10"
+              "value": 10
             }
           ]
         },
@@ -219,7 +219,7 @@
           "hidden": true,
           "isHeader": false,
           "type": "number",
-          "default": "0.7",
+          "default": "0.5",
           "scope": "image,video"
         },
         {

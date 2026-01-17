@@ -54,7 +54,7 @@
     {
       "key": "duration",
       "label": "视频时长",
-      "type": "select",
+      "type": "radio",
       "required": true,
       "hidden": true,
       "lineShow": true,
@@ -74,12 +74,11 @@
       "required": true,
       "hidden": false,
       "isHeader": false,
-      "default": "sora-2-all",
+      "default": "sora-2",
       "placeholder": "请选择视频模型",
       "scope": "video",
       "options": [
-        { "label": "sora-2", "value": "sora-2-all" },
-        { "label": "sora-2-pro", "value": "sora-2-pro" }
+        { "label": "sora-2", "value": "sora-2-all" }
       ]
     },
     {

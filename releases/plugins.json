@@ -1,5 +1,5 @@
 {
-  "version": "1.0.21",
+  "version": "1.0.22",
   "lastUpdated": "2026-01-17",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
@@ -353,7 +353,7 @@
         {
           "key": "duration",
           "label": "视频时长",
-          "type": "select",
+          "type": "radio",
           "required": true,
           "hidden": true,
           "lineShow": true,
@@ -379,17 +379,13 @@
           "required": true,
           "hidden": false,
           "isHeader": false,
-          "default": "sora-2-all",
+          "default": "sora-2",
           "placeholder": "请选择视频模型",
           "scope": "video",
           "options": [
             {
               "label": "sora-2",
               "value": "sora-2-all"
-            },
-            {
-              "label": "sora-2-pro",
-              "value": "sora-2-pro"
             }
           ]
         },

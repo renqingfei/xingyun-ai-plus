@@ -7,6 +7,7 @@
   "port": 13002,
   "exe": "shenmi-plugin.exe",
   "params": [],
+  "isSync": false,
   "description": "神秘插件，用于出图和出视频",
   "options": [
     {

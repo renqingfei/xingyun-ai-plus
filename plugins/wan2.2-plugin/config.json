@@ -8,6 +8,7 @@
   "exe": "wan2.2.exe",
   "params": [],
   "description": "万象2.2图生视频",
+  "isSync": false,
   "options": [
     {
       "key": "comfyui_url",

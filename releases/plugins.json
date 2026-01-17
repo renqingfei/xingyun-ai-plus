@@ -1,6 +1,6 @@
 {
-  "version": "1.0.19",
-  "lastUpdated": "2026-01-15",
+  "version": "1.0.20",
+  "lastUpdated": "2026-01-17",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
     {
@@ -12,6 +12,7 @@
       "port": 13002,
       "exe": "shenmi-plugin.exe",
       "params": [],
+      "isSync": false,
       "description": "神秘插件，用于出图和出视频",
       "options": [
         {
@@ -246,6 +247,7 @@
       "exe": "wan2.2.exe",
       "params": [],
       "description": "万象2.2图生视频",
+      "isSync": false,
       "options": [
         {
           "key": "comfyui_url",
@@ -282,6 +284,137 @@
         }
       ],
       "fileName": "wan2.2-plugin-1.0.1.zip"
+    },
+    {
+      "id": "sora2-plugin",
+      "version": "1.0.0",
+      "name": "Sora-2 视频生成",
+      "type": "video",
+      "host": "http://127.0.0.1",
+      "port": 13005,
+      "exe": "sora2-plugin.exe",
+      "params": [],
+      "description": "基于云雾API的Sora-2视频生成插件，支持图生视频",
+      "isSync": true,
+      "options": [
+        {
+          "key": "sessionId",
+          "label": "API Token",
+          "type": "password",
+          "required": true,
+          "hidden": false,
+          "isHeader": true,
+          "default": "",
+          "placeholder": "请输入云雾API Token",
+          "scope": "video"
+        },
+        {
+          "key": "orientation",
+          "label": "视频方向",
+          "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
+          "default": "landscape",
+          "placeholder": "请选择视频方向",
+          "scope": "video",
+          "options": [
+            {
+              "label": "横屏",
+              "value": "landscape"
+            },
+            {
+              "label": "竖屏",
+              "value": "portrait"
+            }
+          ]
+        },
+        {
+          "key": "size",
+          "label": "分辨率",
+          "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
+          "default": "large",
+          "placeholder": "请选择分辨率",
+          "scope": "video",
+          "options": [
+            {
+              "label": "1080p",
+              "value": "large"
+            },
+            {
+              "label": "720p",
+              "value": "small"
+            }
+          ]
+        },
+        {
+          "key": "duration",
+          "label": "视频时长",
+          "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
+          "default": "8",
+          "placeholder": "请选择视频时长",
+          "scope": "video",
+          "options": [
+            {
+              "label": "10秒",
+              "value": 10
+            },
+            {
+              "label": "15秒",
+              "value": 15
+            }
+          ]
+        },
+        {
+          "key": "model",
+          "label": "视频模型",
+          "type": "select",
+          "required": true,
+          "hidden": false,
+          "isHeader": false,
+          "default": "sora-2-all",
+          "placeholder": "请选择视频模型",
+          "scope": "video",
+          "options": [
+            {
+              "label": "sora-2",
+              "value": "sora-2-all"
+            },
+            {
+              "label": "sora-2-pro",
+              "value": "sora-2-pro"
+            }
+          ]
+        },
+        {
+          "key": "watermark",
+          "label": "水印",
+          "type": "select",
+          "required": false,
+          "hidden": false,
+          "isHeader": false,
+          "default": "false",
+          "placeholder": "请选择是否添加水印",
+          "scope": "video",
+          "options": [
+            {
+              "label": "无水印",
+              "value": "false"
+            },
+            {
+              "label": "有水印",
+              "value": "true"
+            }
+          ]
+        }
+      ],
+      "fileName": "sora2-plugin-1.0.0.zip"
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "version": "1.0.20",
+  "version": "1.0.21",
   "lastUpdated": "2026-01-17",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
@@ -355,9 +355,10 @@
           "label": "视频时长",
           "type": "select",
           "required": true,
-          "hidden": false,
+          "hidden": true,
+          "lineShow": true,
           "isHeader": false,
-          "default": "8",
+          "default": 10,
           "placeholder": "请选择视频时长",
           "scope": "video",
           "options": [

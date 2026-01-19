@@ -1,5 +1,5 @@
 {
-  "version": "1.0.25",
+  "version": "1.0.26",
   "lastUpdated": "2026-01-19",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
@@ -302,7 +302,7 @@
           "type": "input",
           "required": true,
           "hidden": false,
-          "isHeader": false,
+          "isHeader": true,
           "default": "",
           "placeholder": "请输入COMFYUI地址",
           "scope": "image,video"

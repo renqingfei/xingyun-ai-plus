@@ -1,5 +1,5 @@
 {
-  "version": "1.0.24",
+  "version": "1.0.25",
   "lastUpdated": "2026-01-19",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
@@ -293,17 +293,20 @@
       "host": "http://127.0.0.1",
       "port": 13006,
       "exe": "yunhao-plugin.exe",
+      "description": "韵皓专用插件",
       "isSync": false,
-      "params": [
+      "options": [
         {
           "key": "comfyui_url",
-          "label": "ComfyUI地址",
-          "type": "string",
+          "label": "COMFYUI地址",
+          "type": "input",
           "required": true,
-          "description": "ComfyUI服务地址，如: http://127.0.0.1:8188"
-        }
-      ],
-      "options": [
+          "hidden": false,
+          "isHeader": false,
+          "default": "",
+          "placeholder": "请输入COMFYUI地址",
+          "scope": "image,video"
+        },
         {
           "key": "aspect_ratio",
           "label": "画面比例",

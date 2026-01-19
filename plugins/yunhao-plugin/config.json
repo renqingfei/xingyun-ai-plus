@@ -1,0 +1,43 @@
+{
+  "id": "comfyui-txt2img-plugin",
+  "name": "韵皓专用插件",
+  "version": "1.0.0",
+  "type": "image,video",
+  "host": "http://127.0.0.1",
+  "port": 13006,
+  "exe": "yunhao-plugin.exe",
+  "isSync": false,
+  "params": [
+    {
+      "key": "comfyui_url",
+      "label": "ComfyUI地址",
+      "type": "string",
+      "required": true,
+      "description": "ComfyUI服务地址，如: http://127.0.0.1:8188"
+    }
+  ],
+  "options": [
+    {
+      "key": "aspect_ratio",
+      "label": "画面比例",
+      "type": "select",
+      "required": true,
+      "default": "16:9",
+      "scope": "image,video",
+      "options": [
+        {"label": "16:9 (横屏)", "value": "16:9"},
+        {"label": "9:16 (竖屏)", "value": "9:16"}
+      ]
+    },
+    {
+      "key": "n",
+      "label": "生成数量",
+      "type": "number",
+      "required": true,
+      "default": 2,
+      "min": 1,
+      "max": 10,
+      "scope": "image"
+    }
+  ]
+}

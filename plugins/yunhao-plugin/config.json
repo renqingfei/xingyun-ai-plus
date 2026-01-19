@@ -15,7 +15,7 @@
       "type": "input",
       "required": true,
       "hidden": false,
-      "isHeader": false,
+      "isHeader": true,
       "default": "",
       "placeholder": "请输入COMFYUI地址",
       "scope": "image,video"

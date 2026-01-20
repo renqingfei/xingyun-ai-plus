@@ -1,0 +1,70 @@
+{
+  "id": "z-image-plugin",
+  "name": "z-image插件",
+  "version": "1.0.0",
+  "type": "image,video",
+  "host": "http://127.0.0.1",
+  "port": 13006,
+  "exe": "z-image-plugin.exe",
+  "description": "z-image插件",
+  "isSync": false,
+  "options": [
+    {
+      "key": "comfyui_url",
+      "label": "COMFYUI地址",
+      "type": "input",
+      "required": true,
+      "hidden": false,
+      "isHeader": true,
+      "default": "",
+      "placeholder": "请输入COMFYUI地址",
+      "scope": "image,video"
+    },
+    {
+      "key": "aspect_ratio",
+      "label": "画面比例",
+      "type": "select",
+      "required": true,
+      "default": "16:9",
+      "scope": "image,video",
+      "options": [
+        {"label": "16:9 (横屏)", "value": "16:9"},
+        {"label": "9:16 (竖屏)", "value": "9:16"}
+      ]
+    },
+    {
+      "key": "n",
+      "label": "生成数量",
+      "type": "number",
+      "required": true,
+      "default": 2,
+      "min": 1,
+      "max": 10,
+      "scope": "image"
+    },{
+      "key": "duration",
+      "label": "视频时长",
+      "required": true,
+      "hidden": true,
+      "lineShow": true,
+      "isHeader": false,
+      "type": "radio",
+      "default": 5,
+      "scope": "video",
+      "options": [
+        {
+          "label": "3秒",
+          "value": 3
+        },
+        {
+          "label": "5秒",
+          "value": 5
+        },
+        {
+          "label": "8秒",
+          "value": 8
+        }
+      ]
+    }
+  ]
+}

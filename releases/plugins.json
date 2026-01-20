@@ -1,5 +1,5 @@
 {
-  "version": "1.0.28",
+  "version": "1.0.29",
   "lastUpdated": "2026-01-20",
   "baseUrl": "https://cnb.cool/da-fei/xingyun-ai-plugs/-/releases/download/",
   "plugins": [
@@ -286,59 +286,6 @@
       "fileName": "wan2.2-plugin-1.0.1.zip"
     },
     {
-      "id": "comfyui-txt2img-plugin",
-      "name": "韵皓专用插件",
-      "version": "1.0.0",
-      "type": "image,video",
-      "host": "http://127.0.0.1",
-      "port": 13006,
-      "exe": "yunhao-plugin.exe",
-      "description": "韵皓专用插件",
-      "isSync": false,
-      "options": [
-        {
-          "key": "comfyui_url",
-          "label": "COMFYUI地址",
-          "type": "input",
-          "required": true,
-          "hidden": false,
-          "isHeader": true,
-          "default": "",
-          "placeholder": "请输入COMFYUI地址",
-          "scope": "image,video"
-        },
-        {
-          "key": "aspect_ratio",
-          "label": "画面比例",
-          "type": "select",
-          "required": true,
-          "default": "16:9",
-          "scope": "image,video",
-          "options": [
-            {
-              "label": "16:9 (横屏)",
-              "value": "16:9"
-            },
-            {
-              "label": "9:16 (竖屏)",
-              "value": "9:16"
-            }
-          ]
-        },
-        {
-          "key": "n",
-          "label": "生成数量",
-          "type": "number",
-          "required": true,
-          "default": 2,
-          "min": 1,
-          "max": 10,
-          "scope": "image"
-        }
-      ],
-      "fileName": "comfyui-txt2img-plugin-1.0.0.zip"
-    },
-    {
       "id": "sora2-plugin",
       "version": "1.0.0",
       "name": "Sora-2 视频生成",
@@ -465,6 +412,84 @@
         }
       ],
       "fileName": "sora2-plugin-1.0.0.zip"
+    },
+    {
+      "id": "z-image-plugin",
+      "name": "z-image插件",
+      "version": "1.0.0",
+      "type": "image,video",
+      "host": "http://127.0.0.1",
+      "port": 13006,
+      "exe": "z-image-plugin.exe",
+      "description": "z-image插件",
+      "isSync": false,
+      "options": [
+        {
+          "key": "comfyui_url",
+          "label": "COMFYUI地址",
+          "type": "input",
+          "required": true,
+          "hidden": false,
+          "isHeader": true,
+          "default": "",
+          "placeholder": "请输入COMFYUI地址",
+          "scope": "image,video"
+        },
+        {
+          "key": "aspect_ratio",
+          "label": "画面比例",
+          "type": "select",
+          "required": true,
+          "default": "16:9",
+          "scope": "image,video",
+          "options": [
+            {
+              "label": "16:9 (横屏)",
+              "value": "16:9"
+            },
+            {
+              "label": "9:16 (竖屏)",
+              "value": "9:16"
+            }
+          ]
+        },
+        {
+          "key": "n",
+          "label": "生成数量",
+          "type": "number",
+          "required": true,
+          "default": 2,
+          "min": 1,
+          "max": 10,
+          "scope": "image"
+        },
+        {
+          "key": "duration",
+          "label": "视频时长",
+          "required": true,
+          "hidden": true,
+          "lineShow": true,
+          "isHeader": false,
+          "type": "radio",
+          "default": 5,
+          "scope": "video",
+          "options": [
+            {
+              "label": "3秒",
+              "value": 3
+            },
+            {
+              "label": "5秒",
+              "value": 5
+            },
+            {
+              "label": "8秒",
+              "value": 8
+            }
+          ]
+        }
+      ],
+      "fileName": "z-image-plugin-1.0.0.zip"
     }
   ]
 }
